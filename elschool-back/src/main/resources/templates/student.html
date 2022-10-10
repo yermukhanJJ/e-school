@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main menu</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://bootstraptema.ru/snippets/element/2017/dtae/jquery.dataTables.min.css"/>
+<link rel="stylesheet" href="https://bootstraptema.ru/snippets/element/2017/dtae/buttons.dataTables.min.css"/>
+<link rel="stylesheet" href="https://bootstraptema.ru/snippets/element/2017/dtae/select.dataTables.min.css"/>
+<link rel="stylesheet" href="https://bootstraptema.ru/snippets/element/2017/dtae/responsive.dataTables.min.css"/>
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://bootstraptema.ru/snippets/element/2017/dtae/jquery.dataTables.min.js"></script>
+<script src="https://bootstraptema.ru/snippets/element/2017/dtae/dataTables.altEditor.free.js"></script>
+<script src="https://bootstraptema.ru/snippets/element/2017/dtae/dataTables.buttons.min.js"></script>
+<script src="https://bootstraptema.ru/snippets/element/2017/dtae/dataTables.select.min.js"></script>
+<script src="https://bootstraptema.ru/snippets/element/2017/dtae/dataTables.responsive.min.js"></script>
+
+<br><br><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-striped" id="example">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>email</th>
+                    <th>Group</th>
+                    <th>Number</th>
+                </tr>
+                </thead>
+                <form th:action="@{/students}" method="get" class="form-horizontal">
+
+                    <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input th:value="${word != null} ? ${word}" name="word" placeholder="Кого ищите?"
+                               class="form-control"/>
+                    </div>
+                    <div style="margin-top: 10px" class="form-group">
+                        <div class="col-sm-6 controls">
+                            <button type="submit" class="btn btn-primary">Find</button>
+                        </div>
+                        <span th:text="${'Найдено всего ' + students.size()}"/>
+                    </div>
+                </form>
+                <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"/>
+                    <td th:text="${student.firstname}"/>
+                    <td th:text="${student.lastname}"/>
+                    <td th:text="${student.email}"/>
+                    <td th:text="${student.grouping}"/>
+                    <td th:text="${student.number}"/>
+                    <td>
+                        <a th:href="@{'/students/show/' + ${student.id}}" th:text="Просмотреть"/>
+                        <a th:href="@{'/students/delete/' + ${student.id}}" th:text="Удалить"/>
+                        <a th:href="@{'/students/edit/' + ${student.id}}" th:text="Редактировать"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div><!-- ./col-md-8 col-md-offset-2 -->
+    </div><!-- ./row -->
+</div><!-- ./container -->
+</body>
+</html>
